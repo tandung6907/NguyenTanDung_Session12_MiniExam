@@ -132,6 +132,7 @@ where totalstudents = (
 -- a) Viết Stored Procedure GetTopScoreStudent với tham số: IN varCourseID VARCHAR(6).
 -- Chức năng: Hiển thị sinh viên có điểm cao nhất trong môn học được truyền vào.
 delimiter //
+	
 create procedure sp_gettopscorestudent(
     in varcourseid varchar(6)
 )
@@ -156,7 +157,7 @@ end
 
 // delimiter ;
 -- b) Gọi thủ tục trên để tìm sinh viên có điểm cao nhất môn "Database Systems" (C00001).
-call sp_gettopscorestudent('c00001');
+call sp_gettopscorestudent('C00001');
 
 -- PHẦN C – GIỎI (3đ)
 -- Câu 6: Quản lý việc cập nhật điểm cho môn Database Systems (C00001) theo các quy tắc sau:
@@ -175,8 +176,8 @@ select
 from student s
 join department d  on s.deptid = d.deptid
 join enrollment e  on s.studentid = e.studentid
-where d.deptname = 'it'
-  and e.courseid = 'c00001'
+where d.deptname = 'IT'
+  and e.courseid = 'C00001'
 with check option;
 
 -- b) Viết Stored Procedure: Tạo thủ tục UpdateScoreITDB với các tham số:
@@ -184,6 +185,7 @@ with check option;
 -- INOUT inoutNewScore DECIMAL(4,2)
 -- Xử lý: Nếu inoutNewScore > 10 → gán lại = 10. Thực hiện cập nhật điểm thông qua View ViewITEnrollmentDB.
 delimiter //
+	
 create procedure sp_updatescoreitdb(
     in      varstudentid    varchar(6),
     inout   inoutnewscore   decimal(4,2)
@@ -205,7 +207,7 @@ end
 -- Gọi thủ tục để cập nhật điểm cho một sinh viên bất kỳ thuộc khoa IT.
 -- Sau khi gọi: Hiển thị lại giá trị điểm mới và kiểm tra dữ liệu trong View ViewITEnrollmentDB.
 set @newscore = 12.00;
-call sp_updatescoreitdb('s00001', @newscore);
+call sp_updatescoreitdb('S00001', @newscore);
 
 select @newscore as diemmoi;
 select * from v_viewitenrollmentdb;
